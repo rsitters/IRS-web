@@ -1,0 +1,243 @@
+/* setup margins and paddings */
+@font-face{
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu'), url(../resources/fonts/Ubuntu-Regular.ttf) format('truetype');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(45deg, #97d700, #c4d600); 
+    font-family: 'Ubuntu';
+}
+  
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* multiple page css */
+
+.header {
+    width: 80%;
+    margin-right: 10%;
+    margin-top: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header1 {
+    width: 80%;
+    margin-right: 10%;
+    margin-top: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.page {
+    width: 100%;
+    min-height: 100vh;
+    color: #10284C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Make the container relative for absolute positioning of the header */
+  }
+
+.center-screen {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.center{
+    text-align: center;
+}
+
+.border-top-right{
+    background-color: #10284C;
+    color: #fff;
+    border-bottom-left-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    border-top-left-radius: 5rem;
+    padding: 2rem;
+}
+
+.border-top-left{
+    background-color: #10284C;
+    color: #fff;
+    border-bottom-left-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    border-top-right-radius: 5rem;
+    padding: 2rem;
+}
+
+.border-bottom-left{
+    background-color: #10284C;
+    color: #fff;
+    border-bottom-right-radius: 5rem;
+    border-top-left-radius: 5rem;
+    border-top-right-radius: 5rem;
+    padding: 2rem;
+}
+
+.border-bottom-right{
+    background-color: #10284C;
+    color: #fff;
+    border-bottom-left-radius: 5rem;
+    border-top-left-radius: 5rem;
+    border-top-right-radius: 5rem;
+    padding: 2rem;
+}
+
+.title{
+    font-size: 5rem;
+}
+
+.subtitle{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.text{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* homepage */  
+  .rfidIcon {
+    height: 20rem;
+  }
+  
+  .logo {
+    height: 8rem;
+  }
+  
+  .arrowIcon {
+    height: 6rem;
+    width: 5rem;
+  }
+  
+/* buttonpage */  
+  .buttonLayout {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+/* rentpage */
+.table-container {
+    width: 60%;
+    max-height: 20rem;
+    overflow-y: scroll;
+  }
+  
+  .data-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  
+  .data-table th{
+    position: sticky;
+    top: 0;
+    background-color: #10284C;
+    color: #fff;
+    border: 3px solid #10284C;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .data-table tr {
+    background-color: #fff;
+    color: #10284C;
+  }
+
+  .data-table td {
+    border: 3px solid #10284C;
+    padding: 8px;
+  }
+  
+  .data-table tbody tr:hover, .data-table tbody tr.selected-row {
+    background-color: #A2DAE8 !important;
+    cursor: pointer !important;
+  }  
+
+  .buttonLayout1 {
+    width: 60%;
+    display: flex;
+    justify-content: end;
+  }
+
+  /* Adminsupplepage */
+  .table-container-admin{
+    width: 80%;
+    max-height: 20rem;
+    overflow-y: scroll;
+  }
+
+  .buttonLayout-admin{
+    width: 80%;
+    display: flex;
+    justify-content: end;
+  }
+
+  /* Addarticlepage */
+  .width{
+    width: 60%;
+  }
+
+  .flex-end{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: 2px solid #10284C;
+    border-radius: 0.5rem;
+  }
+  
+  button {
+    width: 25%;
+    background-color: #10284C;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }

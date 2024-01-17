@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/style.css';
 import logo from '../resources/images/logoADA1.svg';
-import confirmation from '../resources/icons/confirmation.svg';
+import useInactivityTimer from '../hooks/useInactivityTimer';
+import useNavigation from '../hooks/useNavigation';
 
 function ConfirmationRentpage() {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const { navigateToHomepage } = useNavigation();
+
+  // Retrieve user data from localStorage
+  const UID = JSON.parse(localStorage.getItem('UID'));
+
+  // Use the inactivity timer with the navigateToHomepage callback
+  useInactivityTimer(navigateToHomepage);
+
+  useEffect(() => {
+    // Doe de API-call wanneer de component mount
+    fetchItem();
+  }, [UID]);
+
+  const fetchItem = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/db/get/item/${UID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const item = await response.json();
+
+        setSelectedItem(item);
+      } else {
+        console.error('No data found');
+      }
+    } catch (error) {
+      console.error('Error fetching item:', error);
+    }
+  };
 
   return (
     <div className="page">
@@ -12,13 +47,13 @@ function ConfirmationRentpage() {
         <img src={logo} className="logo" alt="logoADA" />
       </div>
       <div className='center-screen'>
-        <h1 className="title center">
-            'Programmeren voor dummies'<br></br>is uitgeleend voor 7 dag(en)
-        </h1>
+      <h1 className="title center">
+        {selectedItem && selectedItem.Title ? `'${selectedItem.Title}'` : 'Product'}<br></br>is uitgeleend voor 7 dag(en)
+      </h1>
         <Link to="/rent">
-        <div className='border-top-right'>
+          <div className='border-top-right'>
             <p className='center subtitle'>Nog een product lenen</p>
-        </div>
+          </div>
         </Link>
       </div>
     </div>

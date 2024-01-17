@@ -6,6 +6,11 @@
     src: local('Ubuntu'), url(../resources/fonts/Ubuntu-Regular.ttf) format('truetype');
 }
 
+html, body {
+    touch-action: none;
+    user-select: none;
+  }
+
 body {
     margin: 0;
     padding: 0;
@@ -161,7 +166,8 @@ a{
     top: 0;
     background-color: #10284C;
     color: #fff;
-    border: 3px solid #10284C;
+    border-left: 3px solid #10284C;
+    border-right: 3px solid #10284C;
     text-align: left;
     padding: 8px;
   }
@@ -194,10 +200,10 @@ a{
     overflow-y: scroll;
   }
 
-  .buttonLayout-admin{
+  .buttonLayoutAdmin{
     width: 80%;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
   }
 
   /* Addarticlepage */

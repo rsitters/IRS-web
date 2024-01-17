@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 import '../styles/style.css';
 import logo from '../resources/images/logoADA1.svg';
 import confirmation from '../resources/icons/confirmation.svg';
+import useInactivityTimer from '../hooks/useInactivityTimer';
+import useNavigation from '../hooks/useNavigation';
 
 function ConfirmationAddpage() {
+    const { navigateToHomepage } = useNavigation();
+
+    // Use the inactivity timer with the navigateToHomepage callback
+    useInactivityTimer(navigateToHomepage);
 
   return (
     <div className="page">
@@ -14,13 +20,20 @@ function ConfirmationAddpage() {
       </div>
       <div className='center-screen'>
         <h1 className="title center">
-            'Programmeren voor dummies'<br></br>is succesvol toegevoegd
+            Product is succesvol toegevoegd
         </h1>
-        <Link to="/add">
-        <div className='border-top-right'>
-            <p className='center subtitle'>Nog een product toevoegen</p>
+        <div className="buttonLayout">
+          <Link to="/add">
+            <div className='border-top-right'>
+              <p className='center subtitle'>Product toevoegen</p>
+            </div>
+          </Link>
+          <Link to="/admin">
+            <div className='border-top-left'>
+              <p className='center subtitle'>Voorraad inzien</p>
+            </div>
+          </Link>
         </div>
-        </Link>
       </div>
     </div>
   );

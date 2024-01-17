@@ -15,15 +15,16 @@ function Returnpage() {
     // Use the inactivity timer with the navigateToHomepage callback
     useInactivityTimer(navigateToHomepage);
     
+    // Get userdata from localstorage
     const storedUserData = JSON.parse(localStorage.getItem('activeUserData'));
 
     useEffect(() => {
-        // Doe de API-call wanneer de component mount
+        // API-call when component mounts
         fetchItems();
-      }, []);
+    }, []);
     
-      const fetchItems = async () => {
-          try {
+    const fetchItems = async () => {
+        try {
             const response = await fetch('http://localhost:5000/db/get/items', {
               method: 'GET',
               headers: {
@@ -32,84 +33,85 @@ function Returnpage() {
             });
         
             if (response.ok) {
-              const jsonData = await response.json();
+                const jsonData = await response.json();
         
-              // Filter items waarbij 'Lent' gelijk is aan false
-              const studentItems = jsonData.filter(item => item.Rented_by === storedUserData.id);
+                // Filter items where 'Rented' is false
+                const studentItems = jsonData.filter(item => item.Rented_by === storedUserData.id);
 
-                          // Bepaal de categorie op basis van het aanwezig zijn van 'ISBN'
-              const categorizedItems = studentItems.map(item => ({
-                ...item,
-                Category: item.ISBN ? 'Boek' : 'Kit',
-              }));
+                // Determine the category based on the presence of 'ISBN'
+                const categorizedItems = studentItems.map(item => ({
+                    ...item,
+                    Category: item.ISBN ? 'Boek' : 'Kit',
+                }));
 
-              setTableData(categorizedItems); // Stel de gefilterde data in voor de tabel
+                // Set the filtered data for the table  
+                setTableData(categorizedItems); 
             } else {
               console.error('No data found');
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error fetching items:', error);
-          }
-        };
-      
-        const handleRowClick = (itemId) => {
-          setSelectedRow(itemId);
-        };
-
-        const sentReturnEmit = () => {
-            const socket = io('http://localhost:5000');
-            socket.emit('return', 'start_returning');
         }
+    };
+     
+    const handleRowClick = (itemId) => {
+        setSelectedRow(itemId);
+    };
 
-  return (
-    <div className="page">
-      <div className="header">
-        <Link to="/button">
-            <div className='border-top-left'>
-                <p className='center subtitle'>Terug</p>
-            </div>
-        </Link>
-        <img src={logo} className="logo" alt="logoADA" />
-      </div>
-      <div className='center-screen'>
-        <h1 className="title center">
-          Geleende producten
-        </h1>
-        <div className="table-container">
-          <table className="data-table">
-          <thead>
-              <tr>
-                <th>Soort product</th>
-                <th>Titel</th>
-                <th>Retourneerdatum</th>
-              </tr>
-            </thead>
-            <tbody>
-            {tableData.map((item) => (
-                <tr
-                    key={item.ID}  // Gebruik een unieke sleutel op basis van ISBN of ID
-                    onClick={() => handleRowClick(item.ID)}
-                    className={selectedRow === (item.ID) ? 'selected-row' : ''}
-                >
-                    <td>{item.Category}</td>
-                    <td>{item.Title}</td>
-                    <td>{item.Rented_till}</td>
-                    {/* Andere kolommen toevoegen indien nodig */}
+    // Sends emit to start scanner for returning
+    const sentReturnEmit = () => {
+        const socket = io('http://localhost:5000');
+        socket.emit('return', 'start_returning');
+    }
+
+    return (
+        <div className="page">
+        <div className="header">
+            <Link to="/button">
+                <div className='border-top-left'>
+                    <p className='center subtitle'>Terug</p>
+                </div>
+            </Link>
+            <img src={logo} className="logo" alt="logoADA" />
+        </div>
+        <div className='center-screen'>
+            <h1 className="title center">
+            Geleende producten
+            </h1>
+            <div className="table-container">
+            <table className="data-table">
+            <thead>
+                <tr>
+                    <th>Soort product</th>
+                    <th>Titel</th>
+                    <th>Retourneerdatum</th>
                 </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="buttonLayout1">
-          <Link to="/scanproduct" onClick={sentReturnEmit}>
-            <div className='border-top-right'>
-                <p className='center subtitle'>Retourneren</p>
+                </thead>
+                <tbody>
+                {tableData.map((item) => (
+                    <tr
+                        key={item.ID} 
+                        onClick={() => handleRowClick(item.ID)}
+                        className={selectedRow === (item.ID) ? 'selected-row' : ''}
+                    >
+                        <td>{item.Category}</td>
+                        <td>{item.Title}</td>
+                        <td>{item.Rented_till}</td>
+                    </tr>
+                    ))}
+                </tbody>
+            </table>
             </div>
-          </Link>
+            <div className="buttonLayout1">
+            <Link to="/scanproduct" onClick={sentReturnEmit}>
+                <div className='border-top-right'>
+                    <p className='center subtitle'>Retourneren</p>
+                </div>
+            </Link>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default Returnpage;

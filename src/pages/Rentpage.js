@@ -80,6 +80,7 @@ function Rentpage() {
                 <tr>
                     <th>Soort product</th>
                     <th>Titel</th>
+                    <th>Beschrijving</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,6 +92,7 @@ function Rentpage() {
                     >
                         <td>{item.Category}</td>
                         <td>{item.Title}</td>
+                        <td>{item.Description}</td>
                     </tr>
                     ))}
                 </tbody>
